@@ -1,0 +1,31 @@
+.navbar {
+  width:100%;
+  background: green;
+  color: white;
+  padding:0px;
+  display: flex;
+  align-items: center;
+ justify-content: space-between;
+  overflow-x: hidden;
+}
+ body {
+  overflow-x: hidden;   
+}
+
+.logo {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.nav-links a {
+ margin-left:15px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+    white-space: nowrap; 
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  
+}
