@@ -47,3 +47,15 @@
     font-size: 22px;
   }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* 🔥 horizontal scroll fix */
+  font-family: "Poppins", sans-serif;
+}
+

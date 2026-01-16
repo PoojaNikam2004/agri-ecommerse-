@@ -1,42 +1,62 @@
-import React from 'react';
-import './Home.css';
-import { Link } from 'react-router-dom';
+import React from "react";
+import "./Home.css";
+import { Link } from "react-router-dom";
 
 
-export default function Home() {
-return (
-<div className="home-container">
-{/* Hero Section */}
-<section className="hero">
-<h1>Fresh Seeds & Fertilizers for Every Farmer</h1>
-<p>Your trusted agriculture marketplace</p>
-<Link to="/products" className="hero-btn">Shop Now</Link>
-</section>
+const Home = () => {
+  return (
+    <div className="home">
+
+      {/* HERO SECTION */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1>India’s Trusted Agriculture Store 🌱</h1>
+          <p>
+            Fresh Seeds, Fertilizers & Tools for Better Farming
+          </p>
+
+          <div className="hero-buttons">
+            <Link to="/products" className="btn primary">
+              Shop Now
+            </Link>
+            <Link to="/products" className="btn secondary">
+              Explore Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="features">
+        <div className="feature-card">🚚 Free Delivery</div>
+        <div className="feature-card">🌱 100% Organic</div>
+        <div className="feature-card">👨‍🌾 Farmer Trusted</div>
+        <div className="feature-card">💰 Best Prices</div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="categories">
+        <h2>Top Categories</h2>
+
+        <div className="category-grid">
+          <div className="category-card">Seeds</div>
+          <div className="category-card">Fertilizers</div>
+          <div className="category-card">Tools</div>
+          <div className="category-card">Pesticides</div>
+        </div>
+      </section>
 
 
-{/* Categories */}
-<section className="categories">
-<h2>Top Categories</h2>
-<div className="cat-grid">
-<div className="cat-card" >Seeds</div>
+      <section className="cta">
+        <h2>Grow Better Crops with AgriMart 🌾</h2>
+        <Link to="/products" className="btn-primary">
+          Start Shopping
+        </Link>
+      </section>
+   
 
-<div className="cat-card">Fertilizers</div>
-<div className="cat-card">Tools</div>
-<div className="cat-card">Pesticides</div>
-</div>
-</section>
+    </div>
+  );
+};
 
-
-{/* Featured Products */}
-<section className="featured">
-<h2>Featured Products</h2>
-<div className="product-grid">
-<div className="product-card">Wheat Seeds – ₹299</div>
-<div className="product-card">Rice Seeds – ₹349</div>
-<div className="product-card">Organic Fertilizer – ₹499</div>
-<div className="product-card">Garden Tool Set – ₹799</div>
-</div>
-</section>
-</div>
-);
-}
+export default Home;

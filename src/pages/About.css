@@ -1,0 +1,197 @@
+.about-page {
+  font-family: "Segoe UI", sans-serif;
+  color: #2e2e2e;
+}
+.about-hero {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+}
+
+/* 🔁 MOVING BACKGROUND */
+.moving-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+
+  background-image: 
+    url("https://img.freepik.com/premium-photo/background-miscellaneous-digitalization-services-agriculture_58460-29882.jpg?w=2000");
+   
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-x;
+
+  animation: moveBg 10s linear infinite;
+}
+
+/* RIGHT → LEFT */
+@keyframes moveBg {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* DARK OVERLAY */
+.about-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* CONTENT */
+.about-overlay {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-overlay h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.about-overlay p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.about-btn {
+  padding: 14px 36px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+  color: #fff;
+  transition: 0.3s;
+}
+
+.about-btn:hover {
+  transform: scale(1.05);
+}
+
+
+
+/* Sections */
+.about-section,
+.why-us {
+  padding: 60px 12%;
+  text-align: center;
+}
+
+.about-section h2,
+.why-us h2 {
+  font-size: 34px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Grid */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 40px 12%;
+}
+
+.about-card {
+  background: #f1f8e9;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.about-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Why Us */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.why-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 10%;
+  background: #e8f5e9;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box h3 {
+  font-size: 36px;
+  color: #1e7d3b;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 34px;
+  }
+  .stats {
+    flex-direction: column;
+  }
+}

@@ -4,7 +4,7 @@ import "./Register.css";
 
 const Register = () => {
   return (
-    <form className="Register-form">
+    <form classNameName="Register-form">
 
   
     <div style={{ padding: "100px", backgroundColor:"rgba(137, 255, 34, 0.48)", borderRadius:"10px", maxWidth:"400px", margin:"auto", marginTop:"50px" }}>
