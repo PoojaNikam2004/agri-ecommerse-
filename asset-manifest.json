@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/agri-ecommerse-/static/css/main.47744503.css",
+    "main.js": "/agri-ecommerse-/static/js/main.0d93d61e.js",
+    "index.html": "/agri-ecommerse-/index.html",
+    "main.47744503.css.map": "/agri-ecommerse-/static/css/main.47744503.css.map",
+    "main.0d93d61e.js.map": "/agri-ecommerse-/static/js/main.0d93d61e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.47744503.css",
+    "static/js/main.0d93d61e.js"
+  ]
+}
