@@ -1,6 +1,10 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const Cart = () => {
   const {
@@ -15,7 +19,7 @@ const Cart = () => {
     0
   );
   console.log("cartItems:", cartItems);
-
+const navigate= useNavigate();
 
   return (
     <div className="cart-container">
@@ -34,6 +38,8 @@ const Cart = () => {
         <div className="cart-qty">
           <button onClick={() => decreaseQty(item.id)}>-</button>
           <span>{item.quantity}</span>
+          <p>₹{Number(item.price)}</p>
+
           <button onClick={() => increaseQty(item.id)}>+</button>
         </div>
 
@@ -50,12 +56,20 @@ const Cart = () => {
   {cartItems.length > 0 && (
     <div className="cart-total">
       <h2>Total: ₹{totalPrice}</h2>
-      <button className="checkout-btn">
-        Proceed to Checkout →
-      </button>
+      
+
+<button
+  className="checkout-btn"
+  onClick={() => navigate("/order")}
+>
+  Proceed to Checkout →
+</button>
+     
     </div>
   )}
 </div>
   );
 }
 export default Cart;
+
+

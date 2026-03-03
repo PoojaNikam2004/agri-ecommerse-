@@ -11,7 +11,8 @@ const ProductDetails = () => {
 
 
   useEffect(() => {
-    fetch(`https://696355cc2d146d9f58d33410.mockapi.io/seeds/${id}`)
+    fetch(`http://localhost:5000/api/products/${id}`)
+
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch((err) => console.log(err));

@@ -1,0 +1,60 @@
+const db = require("../config/db");
+const Order = require("../models/order");
+const Cart = require("../models/cartModel");
+
+exports.placeOrder = (req, res) => {
+  const userId = req.user.id;
+
+  const cartSql = `
+    SELECT c.product_id, c.quantity, p.price
+    FROM cart c
+    JOIN products p ON c.product_id = p.id
+    WHERE c.user_id=?
+  `;
+
+  db.query(cartSql, [userId], (err, cartItems) => {
+    if (err) return res.status(500).json(err);
+
+    if (cartItems.length === 0)
+      return res.status(400).json({ message: "Cart is empty" });
+
+    const total = cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    Order.createOrder(userId, total, (err, result) => {
+      if (err) return res.status(500).json(err);
+
+      const orderId = result.insertId;
+
+      Order.createOrderItems(cartItems, orderId, (err) => {
+        if (err) return res.status(500).json(err);
+
+        Cart.clearCart(userId, () => {
+          res.status(201).json({
+            message: "Order placed successfully",
+            orderId,
+            total
+          });
+        });
+      });
+    });
+  });
+};
+
+exports.myOrders = (req, res) => {
+  Order.getUserOrders(req.user.id, (err, orders) => {
+    if (err) return res.status(500).json(err);
+
+    res.json(orders);
+  });
+};
+
+exports.allOrders = (req, res) => {
+  Order.getAllOrders((err, orders) => {
+    if (err) return res.status(500).json(err);
+
+    res.json(orders);
+  });
+};

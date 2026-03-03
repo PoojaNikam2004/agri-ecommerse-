@@ -10,6 +10,10 @@ import Productdetails from "./pages/Productdetails";
 import { CartProvider } from "./context/CartContext";
 import Footer from "./components/Footer";
 import About from "./pages/About";
+import Order from "./pages/Order";
+import OrderSuccess from "./pages/OrderSuccess";
+
+import MyOrder from "./pages/MyOrder";
 
 
 function App() {
@@ -27,6 +31,13 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/Checkout" element={<Checkout />} />
+        <Route path="/Order" element={<Order />} />
+      
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/my-order" element={<MyOrder />} />
+
+        
       </Routes>
       <Footer />
     </CartProvider>
