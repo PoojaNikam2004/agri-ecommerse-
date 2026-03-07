@@ -3,17 +3,11 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
-
 const Navbar = () => {
   const { cartItems = [] } = useCart();
   const [openProfile, setOpenProfile] = useState(false);
 
-  const totalItems = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
-
-  
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const user = {
     name: "POOJA",
@@ -41,17 +35,21 @@ const Navbar = () => {
         {/* Cart */}
         <Link to="/cart" className="cart-link">
           Cart
-          {totalItems > 0 && (
-            <span className="cart-badge">{totalItems}</span>
-          )}
+          {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
         </Link>
 
-        <Link to="/order" className="order">Order</Link>
-        <Link to="/MyOrder" className="order">MyOrder</Link>
-        <Link to="/OrderSuccess" className="order">Payment</Link>
+        <Link to="/order" className="order">
+          Order
+        </Link>
+        <Link to="/MyOrder" className="order">
+          MyOrder
+        </Link>
+        <Link to="/OrderSuccess" className="order">
+          Payment
+        </Link>
 
-
-
+        <Link to="/admin">Admin</Link>
+        <Link to="/profile">Profile</Link>
 
         {/* PROFILE */}
         {user ? (
@@ -59,9 +57,7 @@ const Navbar = () => {
             className="profile-wrapper"
             onClick={() => setOpenProfile(!openProfile)}
           >
-            <div className="profile-circle">
-              {user.name.charAt(0)}
-            </div>
+            <div className="profile-circle">{user.name.charAt(0)}</div>
 
             {openProfile && (
               <div className="profile-dropdown">
@@ -76,7 +72,9 @@ const Navbar = () => {
             )}
           </div>
         ) : (
-          <Link to="/login" className="login-btn">Login</Link>
+          <Link to="/login" className="login-btn">
+            Login
+          </Link>
         )}
       </div>
     </nav>

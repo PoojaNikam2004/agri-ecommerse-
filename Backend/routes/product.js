@@ -1,18 +1,19 @@
+  // const express = require("express");
+  // const router = express.Router();
+  // const productController = require("../controllers/productController");
+  // 
+  // router.get("/", productController.getAllProducts);
+  // 
+  // // ⭐ SINGLE PRODUCT
+  // router.get("/:id", productController.getSingleProduct);
+  // 
+  // module.exports = router;
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/uploadMiddleware");
+const productController = require("../controllers/productController");
 
-const { 
-  createProduct, 
-  getAllProducts 
-} = require("../controllers/productController");
+router.get("/", productController.getAllProducts);
 
-
-// 👉 GET all products (frontend ke )
-router.get("/", getAllProducts);
-
-
-// 👉 POST product (admin panel ke )
-router.post("/", upload.single("image"), createProduct);
-
+router.delete("/:id", productController.deleteProduct);
+router.get("/:id", productController.getSingleProduct);
 module.exports = router;

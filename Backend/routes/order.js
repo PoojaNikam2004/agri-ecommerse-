@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
-const authMiddleware = require("../middleware/authMiddleware");
+const { protect } = require("../middleware/authMiddleware");
 
 /* PLACE ORDER */
-router.post("/place", authMiddleware, async (req, res) => {
+router.post("/place", protect, async (req, res) => {
   const { cartItems, totalAmount, address, paymentMethod } = req.body;
 
   try {
@@ -29,7 +29,7 @@ router.post("/place", authMiddleware, async (req, res) => {
 });
 
 /* USER ORDERS */
-router.get("/my-orders", authMiddleware, async (req, res) => {
+router.get("/my-orders", protect, async (req, res) => {
   try {
     const [orders] = await db.query(
       "SELECT * FROM orders WHERE user_id=? ORDER BY id DESC",
@@ -43,7 +43,7 @@ router.get("/my-orders", authMiddleware, async (req, res) => {
 });
 
 /* ORDER DETAILS */
-router.get("/:id", authMiddleware, async (req, res) => {
+router.get("/:id", protect, async (req, res) => {
   try {
     const [order] = await db.query(
       "SELECT * FROM orders WHERE id=? AND user_id=?",

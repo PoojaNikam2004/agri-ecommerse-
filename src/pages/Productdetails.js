@@ -4,28 +4,35 @@ import "./Productdetails.css";
 import { useCart } from "../context/CartContext";
 
 const ProductDetails = () => {
+
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-
   const { addToCart } = useCart();
 
-
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
 
+    fetch(`http://localhost:5000/api/products/${id}`)
       .then((res) => res.json())
-      .then((data) => setProduct(data))
+      .then((data) => {
+        console.log(data);
+        setProduct(data);
+      })
       .catch((err) => console.log(err));
+
   }, [id]);
 
-  if (!product) return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  if (!product) {
+    return <h2 style={{ textAlign: "center" }}>Loading...</h2>;
+  }
 
   return (
     <div className="detail-container">
       <div className="detail-card">
+
         <div className="detail-image">
+
           <img
-            src={product.image}
+            src={`http://localhost:5000/${product.image}`}
             alt={product.name}
             style={{ width: "100%", height: "300px", objectFit: "contain" }}
             onError={(e) => {
@@ -36,25 +43,20 @@ const ProductDetails = () => {
         </div>
 
         <div className="detail-info">
+
           <h1>{product.name}</h1>
           <h2>₹{product.price}</h2>
 
           <p className="desc">
             🌱 High quality agricultural product for better crop growth.
-            Suitable for Indian farming conditions.
           </p>
-
-          <ul>
-            <li>✔ 100% Organic</li>
-            <li>✔ Fast Growth</li>
-            <li>✔ Farmer Trusted</li>
-          </ul>
 
           <button onClick={() => addToCart(product)}>
             Add to Cart
           </button>
 
         </div>
+
       </div>
     </div>
   );

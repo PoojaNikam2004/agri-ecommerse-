@@ -16,6 +16,16 @@ import OrderSuccess from "./pages/OrderSuccess";
 import MyOrder from "./pages/MyOrder";
 
 
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AddProduct from "./pages/admin/AddProduct";
+import ManageProducts from "./pages/admin/ManageProducts";
+import "./App.css";
+import AdminOrders from "./pages/admin/AdminOrders";
+import Profile from "./pages/Profile";
+
+
+
+
 function App() {
   return (
     <CartProvider>
@@ -31,11 +41,19 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/Checkout" element={<Checkout />} />
+      
         <Route path="/Order" element={<Order />} />
       
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/my-order" element={<MyOrder />} />
+   
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/products" element={<ManageProducts />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/profile" element={<Profile />} />
+
+
 
         
       </Routes>
