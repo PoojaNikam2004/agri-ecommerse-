@@ -3,6 +3,7 @@ import "./Products.css";
 import { Link } from "react-router-dom";
 import API from "../api";
 
+
 const categories = [
   { label: "All", value: "all" },
   { label: "Vegetable Seeds", value: "vegetable" },

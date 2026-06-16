@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/products", require("./routes/product"));
 app.use("/api/cart", require("./routes/cartRoutes"));
@@ -18,13 +19,9 @@ app.use("/api/categories", require("./routes/category"));
 app.use("/uploads", express.static("uploads"));
 
 app.use("/payment", express.static("paymentRoutes"));
+
 app.use("/api/admin", require("./routes/adminorders"));
-
-
-
-
-
-
+app.use("/api/user", require("./routes/user"));
 
 // Test Route
 app.get("/", (req, res) => {

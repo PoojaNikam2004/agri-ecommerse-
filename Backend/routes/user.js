@@ -1,18 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const authMiddleware = require("../middleware/authMiddleware");
 const db = require("../config/db");
+const {protect} = require("../middleware/authMiddleware");
 
-router.get("/profile", authMiddleware, (req, res) => {
 
-  const sql = "SELECT id,name,email FROM users WHERE id=?";
+router.get("/profile",protect,(req,res)=>{
 
-  db.query(sql, [req.user.id], (err, result) => {
-    if (err) return res.status(500).json(err);
+const userId = req.user.id;
 
-    res.json(result[0]);
-  });
+const sql = "SELECT id,name,email FROM users WHERE id=?";
 
-});
+db.query(sql,[userId],(err,result)=>{
+
+if(err) return res.status(500).json(err);
+
+res.json(result[0]);
+
+})
+
+})
 
 module.exports = router;

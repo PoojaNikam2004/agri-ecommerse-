@@ -1,29 +1,76 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import React from 'react';
-import './Login.css';
+const Login = () => {
 
+  const navigate = useNavigate();
 
-export default function Login() {
-return (
-<div className="login-container">
-<div className="login-box">
-<h2>Welcome Back to AgriMart</h2>
-<p className="subtitle">Login and continue shopping for agriculture products</p>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-<form>
-<input type="text" placeholder="Full Name" required />
-<input type="email" placeholder="Email Address" required />
-<input type="tel" placeholder="Mobile Number" required />
-<input type="password" placeholder="Password" required />
+    try {
 
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        {
+          email: email,
+          password: password
+        }
+      );
 
-<button type="submit" className="login-btn">Login</button>
+      console.log(res.data);
 
+      // ⭐ TOKEN SAVE
+      localStorage.setItem("token", res.data.token);
 
-<p className="extra-text">Don't have an account? <a href="/register">Register here</a></p>
-</form>
-</div>
-</div>
-);
-}
+      // user info save
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      alert("Login Successful");
+
+      navigate("/profile");
+
+    } catch (err) {
+      console.log(err);
+      alert("Login Failed");
+    }
+  };
+
+  return (
+    <div style={{ padding: "40px", textAlign: "center" }}>
+
+      <h2>Login</h2>
+
+      <form onSubmit={handleLogin}>
+
+        <input
+          type="email"
+          placeholder="Enter Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <br /><br />
+
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <br /><br />
+
+        <button type="submit">Login</button>
+
+      </form>
+
+    </div>
+  );
+};
+
+export default Login;
