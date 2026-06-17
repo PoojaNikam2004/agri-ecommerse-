@@ -1,54 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./Profile.css";
 
 const Profile = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const [user,setUser] = useState(null);
-
-  useEffect(()=>{
-
+  useEffect(() => {
     const token = localStorage.getItem("token");
 
-    axios.get("http://localhost:5000/api/user/profile",{
-      headers:{ Authorization:`Bearer ${token}` }
+    console.log("TOKEN =", token);
+
+    axios.get("http://localhost:5000/api/user/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     })
-    .then(res=>{
+    .then((res) => {
+      console.log("PROFILE DATA =", res.data);
       setUser(res.data);
+      setLoading(false);
     })
-    .catch(err=>{
-      console.log(err);
-    })
+    .catch((err) => {
+      console.log("PROFILE ERROR =", err.response);
+      setLoading(false);
+    });
 
-  },[])
+  }, []);
 
-  if(!user) return <h2 style={{textAlign:"center"}}>Loading...</h2>
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
-  return(
+  if (!user) {
+    return <h2>User Not Found</h2>;
+  }
 
-    <div className="profile-container">
-
+  return (
+    <div>
       <h1>My Profile</h1>
-
-      <div className="profile-card">
-
-        <div className="profile-item">
-          <span>Name:</span> {user.name}
-        </div>
-
-        <div className="profile-item">
-          <span>Email:</span> {user.email}
-        </div>
-
-        <button className="edit-btn">
-          Edit Profile
-        </button>
-
-      </div>
-
+      <h3>Name: {user.name}</h3>
+      <h3>Email: {user.email}</h3>
     </div>
+  );
+};
 
-  )
-}
-
-export default Profile
+export default Profile;
