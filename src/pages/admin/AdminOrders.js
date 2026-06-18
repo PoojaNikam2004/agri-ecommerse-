@@ -63,6 +63,7 @@ const AdminOrders = () => {
                 >
                   <option value="pending">Pending</option>
                   <option value="shipped">Shipped</option>
+                  <option value="processing">Processing</option>
                   <option value="delivered">Delivered</option>
                 </select>
               </td>
