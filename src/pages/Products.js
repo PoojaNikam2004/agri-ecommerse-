@@ -3,96 +3,140 @@ import "./Products.css";
 import { Link } from "react-router-dom";
 import API from "../api";
 
-
 const categories = [
   { label: "All", value: "all" },
-  { label: "Vegetable Seeds", value: "vegetable" },
+  { label: "Vegetable ", value: "vegetable" },
   { label: "Fruit Seeds", value: "fruit" },
   { label: "Flower Seeds", value: "flower" },
   { label: "Organic", value: "organic" },
   { label: "Tools", value: "tools" },
 ];
 
-export default function Products() {
+const Products = () => {
   const [products, setProducts] = useState([]);
-  const [filtered, setFiltered] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState("all");
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
+  // Fetch Products
   useEffect(() => {
-    API.get("/products")
-      .then((res) => {
+    const fetchProducts = async () => {
+      try {
+        const res = await API.get("/products");
+
         setProducts(res.data);
-        setFiltered(res.data);
-      })
-      .catch((err) => {
-        console.log("Product fetch error:", err);
-      });
+        setFilteredProducts(res.data);
+      } catch (error) {
+        console.log("Product fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
+  // Filter Products
   useEffect(() => {
-    let result = products;
+    let result = [...products];
 
+    // Category Filter
     if (activeCategory !== "all") {
       result = result.filter(
-        (item) =>
-          item.category &&
-          item.category.toLowerCase() === activeCategory
+        (product) =>
+          product.category &&
+          product.category.toLowerCase() ===
+            activeCategory.toLowerCase()
       );
     }
 
-    if (search) {
-      result = result.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+    // Search Filter
+    if (search.trim()) {
+      result = result.filter((product) =>
+        product.name
+          ?.toLowerCase()
+          .includes(search.toLowerCase())
       );
     }
 
-    setFiltered(result);
+    setFilteredProducts(result);
   }, [activeCategory, search, products]);
 
   return (
     <div className="products-container">
       <h1>Our Products</h1>
 
-      {/* 🔍 Search */}
+      {/* Search */}
       <input
+        type="text"
         className="search-input"
-        placeholder="Search seeds, tools..."
+        placeholder="Search products..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {/* 🌱 Categories */}
+      {/* Category Buttons */}
       <div className="category-bar">
         {categories.map((cat) => (
           <button
             key={cat.value}
-            className={activeCategory === cat.value ? "active" : ""}
-            onClick={() => setActiveCategory(cat.value)}
+            className={
+              activeCategory === cat.value ? "active" : ""
+            }
+            onClick={() =>
+              setActiveCategory(cat.value)
+            }
           >
             {cat.label}
           </button>
         ))}
       </div>
 
-      {/* 🧺 Products */}
-      <div className="products-grid">
-        {filtered.map((item) => (
-          <div key={item.id} className="product-card">
-            
-            <img
-              src={`http://localhost:5000/uploads/${item.image}`}
-              alt={item.name}
-            />
-            <h3>{item.name}</h3>
-            <p>₹{item.price}</p>
+      {/* Loading */}
+      {loading && <h2>Loading Products...</h2>}
 
-            <Link to={`/product/${item.id}`} className="details-btn">
-              View Details
-            </Link>
-          </div>
-        ))}
-      </div>
+      {/* Product Grid */}
+      {!loading && (
+        <div className="products-grid">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <div
+                key={product.id}
+                className="product-card"
+              >
+                {product.image ? (
+                  <img
+                    src={`http://localhost:5000/uploads/${product.image}`}
+                    alt={product.name}
+                  />
+                ) : (
+                  <div className="no-image">
+                    No Image
+                  </div>
+                )}
+
+                <h3>{product.name}</h3>
+
+                <p className="price">
+                  ₹{product.price}
+                </p>
+
+                <Link
+                  to={`/product/${product.id}`}
+                  className="details-btn"
+                >
+                  View Details
+                </Link>
+              </div>
+            ))
+          ) : (
+            <h3>No Products Found</h3>
+          )}
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default Products;
