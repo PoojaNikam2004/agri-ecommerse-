@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import axios from "axios";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
-    const res = await axios.get("http://localhost:5000/api/products");
-    setProducts(res.data);
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/api/products"
+      );
+
+      setProducts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -14,9 +24,21 @@ const ManageProducts = () => {
   }, []);
 
   const deleteProduct = async (id) => {
-    if (window.confirm("Delete this product?")) {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+    try {
+      const confirmDelete =
+        window.confirm(
+          "Delete this product?"
+        );
+
+      if (!confirmDelete) return;
+
+      await axios.delete(
+        `http://localhost:5000/api/products/${id}`
+      );
+
       fetchProducts();
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -24,7 +46,10 @@ const ManageProducts = () => {
     <div style={{ padding: "40px" }}>
       <h2>Manage Products</h2>
 
-      <table border="1" cellPadding="10">
+      <table
+        border="1"
+        cellPadding="10"
+      >
         <thead>
           <tr>
             <th>ID</th>
@@ -32,6 +57,7 @@ const ManageProducts = () => {
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Category</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -42,18 +68,26 @@ const ManageProducts = () => {
               <td>{p.id}</td>
 
               <td>
-                <img
-                  src={`http://localhost:5000/uploads/${p.image}`}
-                  width="60"
-                />
+                {p.image && (
+                  <img
+                    src={`http://localhost:5000/uploads/${p.image}`}
+                    alt={p.name}
+                    width="70"
+                  />
+                )}
               </td>
 
               <td>{p.name}</td>
               <td>₹{p.price}</td>
               <td>{p.stock}</td>
+              <td>{p.category}</td>
 
               <td>
-                <button onClick={() => deleteProduct(p.id)}>
+                <button
+                  onClick={() =>
+                    deleteProduct(p.id)
+                  }
+                >
                   Delete
                 </button>
               </td>

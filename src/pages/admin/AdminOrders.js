@@ -61,10 +61,10 @@ const AdminOrders = () => {
                     updateStatus(o.id, e.target.value)
                   }
                 >
-                  <option value="pending">Pending</option>
-                  <option value="shipped">Shipped</option>
-                  <option value="processing">Processing</option>
-                  <option value="delivered">Delivered</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Shipped">Shipped</option>
+                  <option value="Processing">Processing</option>
+                  <option value="Delivered">Delivered</option>
                 </select>
               </td>
             </tr>

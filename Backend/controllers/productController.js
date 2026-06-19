@@ -1,72 +1,105 @@
 const db = require("../config/db");
 
-// ✅ CREATE PRODUCT
+/* CREATE PRODUCT */
 exports.createProduct = (req, res) => {
+
+  console.log("BODY =>", req.body);
+  console.log("FILE =>", req.file);
+
   const { name, description, price, stock, category } = req.body;
 
-  // FIX: image path
-  const image = req.file ? "uploads/" + req.file.filename : null;
+  const image = req.file ? req.file.filename : null;
+
+  console.log("IMAGE =>", image);
+
 
   const sql = `
-    INSERT INTO products 
+    INSERT INTO products
     (name, description, price, stock, image, category)
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
   db.query(
     sql,
-    [name, description, price, stock, image, category],
+    [
+      name,
+      description,
+      price,
+      stock,
+      image,
+      category,
+    ],
     (err, result) => {
-      if (err) return res.status(500).json(err);
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
 
-      res.json({
+      res.status(201).json({
         success: true,
-        message: "Product created successfully",
-        id: result.insertId,
+        message: "Product Added Successfully",
+        productId: result.insertId,
       });
     }
   );
 };
 
-// ✅ GET ALL PRODUCTS
+/* GET ALL PRODUCTS */
 exports.getAllProducts = (req, res) => {
-  const sql = "SELECT * FROM products";
+  db.query(
+    "SELECT * FROM products ORDER BY id DESC",
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
 
-  db.query(sql, (err, results) => {
-    if (err) return res.status(500).json(err);
-
-    res.json(results);
-  });
+      res.json(results);
+    }
+  );
 };
 
-// ✅ GET SINGLE PRODUCT
+/* GET SINGLE PRODUCT */
 exports.getSingleProduct = (req, res) => {
   const { id } = req.params;
 
-  const sql = "SELECT * FROM products WHERE id=?";
+  db.query(
+    "SELECT * FROM products WHERE id=?",
+    [id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
 
-  db.query(sql, [id], (err, result) => {
-    if (err) return res.status(500).json(err);
+      if (result.length === 0) {
+        return res.status(404).json({
+          message: "Product not found",
+        });
+      }
 
-    if (result.length === 0) {
-      return res.status(404).json({ message: "Product not found" });
+      res.json(result[0]);
     }
-
-    res.json(result[0]);
-  });
+  );
 };
 
-// DELETE PRODUCT
+/* DELETE PRODUCT */
 exports.deleteProduct = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
-  const sql = "DELETE FROM products WHERE id=?";
+  db.query(
+    "DELETE FROM products WHERE id=?",
+    [id],
+    (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json(err);
+      }
 
-  db.query(sql, [id], (err, result) => {
-    if (err) return res.status(500).json(err);
-
-    res.json({
-      message: "Product deleted successfully"
-    });
-  });
+      res.json({
+        success: true,
+        message: "Product deleted successfully",
+      });
+    }
+  );
 };
