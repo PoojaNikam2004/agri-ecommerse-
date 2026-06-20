@@ -1,67 +1,81 @@
 const express = require("express");
 const router = express.Router();
+
 const db = require("../config/db");
 const { protect } = require("../middleware/authMiddleware");
 
 /* PLACE ORDER */
-router.post("/place", protect, async (req, res) => {
+router.post("/place", protect, (req, res) => {
+
   const { cartItems, totalAmount, address, paymentMethod } = req.body;
 
-  try {
-    const [orderResult] = await db.query(
-      "INSERT INTO orders (user_id, total_amount, payment_method, address) VALUES (?, ?, ?, ?)",
-      [req.user.id, totalAmount, paymentMethod, address]
-    );
+  const sql =
+    "INSERT INTO orders (user_id, total_amount, payment_method, address) VALUES (?, ?, ?, ?)";
 
-    const orderId = orderResult.insertId;
+  db.query(
+    sql,
+    [req.user.id, totalAmount, paymentMethod, address],
+    (err, result) => {
 
-    for (let item of cartItems) {
-      await db.query(
-        "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)",
-        [orderId, item.id, item.quantity, item.price]
-      );
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          error: err.message,
+        });
+      }
+
+      const orderId = result.insertId;
+
+      let completed = 0;
+
+      cartItems.forEach((item) => {
+
+        db.query(
+          "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)",
+          [
+            orderId,
+            item.id,
+            item.quantity,
+            item.price,
+          ],
+          (err2) => {
+
+            if (err2) {
+              console.log(err2);
+            }
+
+            completed++;
+
+            if (completed === cartItems.length) {
+              res.json({
+                success: true,
+                message: "Order placed successfully",
+                orderId,
+              });
+            }
+          }
+        );
+      });
     }
-
-    res.json({ success: true, message: "Order placed successfully", orderId });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
+  );
 });
 
-/* USER ORDERS */
-router.get("/my-orders", protect, async (req, res) => {
-  try {
-    const [orders] = await db.query(
-      "SELECT * FROM orders WHERE user_id=? ORDER BY id DESC",
-      [req.user.id]
-    );
+/* MY ORDERS */
+router.get("/my-orders", protect, (req, res) => {
 
-    res.json(orders);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+  db.query(
+    "SELECT * FROM orders WHERE user_id=? ORDER BY id DESC",
+    [req.user.id],
+    (err, orders) => {
 
-/* ORDER DETAILS */
-router.get("/:id", protect, async (req, res) => {
-  try {
-    const [order] = await db.query(
-      "SELECT * FROM orders WHERE id=? AND user_id=?",
-      [req.params.id, req.user.id]
-    );
+      if (err) {
+        return res.status(500).json(err);
+      }
 
-    const [items] = await db.query(
-      `SELECT oi.*, p.name, p.image 
-       FROM order_items oi 
-       JOIN products p ON oi.product_id=p.id 
-       WHERE oi.order_id=?`,
-      [req.params.id]
-    );
-
-    res.json({ ...order[0], items });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+      res.json(orders);
+    }
+  );
 });
 
 module.exports = router;

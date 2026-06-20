@@ -1,7 +1,31 @@
+  //  const mysql = require("mysql2");
+  //  
+  //  
+  //  const db = mysql.createPool({
+  //    host: "localhost",
+  //    user: "pooja",
+  //    password: "pooja123",
+  //    database: "pooja",
+  //    waitForConnections: true,
+  //    connectionLimit: 10,
+  //    queueLimit: 0
+  //  });
+  //  
+  //  db.getConnection((err, conn) => {
+  //    if (err) {
+  //      console.log("❌ DB Error:", err.message);
+  //    } else {
+  //      console.log("✅ MySQL Connected Successfully");
+  //      conn.release();
+  //    }
+  //  });
+  //  
+  //  module.exports = db;
+
+
 const mysql = require("mysql2");
 
-
-const db = mysql.createPool({
+const pool = mysql.createPool({
   host: "localhost",
   user: "pooja",
   password: "pooja123",
@@ -11,7 +35,7 @@ const db = mysql.createPool({
   queueLimit: 0
 });
 
-db.getConnection((err, conn) => {
+pool.getConnection((err, conn) => {
   if (err) {
     console.log("❌ DB Error:", err.message);
   } else {
@@ -20,4 +44,4 @@ db.getConnection((err, conn) => {
   }
 });
 
-module.exports = db;
+module.exports = pool.promise();

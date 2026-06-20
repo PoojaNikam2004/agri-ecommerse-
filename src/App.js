@@ -22,7 +22,8 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import Profile from "./pages/Profile";
 
 function App() {
-  return (
+  return ( 
+    
     <CartProvider>
 
       <Navbar />
