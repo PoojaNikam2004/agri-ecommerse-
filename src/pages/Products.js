@@ -5,9 +5,9 @@ import API from "../api";
 
 const categories = [
   { label: "All", value: "all" },
-  { label: "Vegetable ", value: "vegetable" },
-  { label: "Fruit Seeds", value: "fruit" },
-  { label: "Flower Seeds", value: "flower" },
+  { label: "Vegetable ", value: "vegetables" },
+  { label: "Fruit Seeds", value: "fruits" },
+  { label: "Flower Seeds", value: "flowers" },
   { label: "Organic", value: "organic" },
   { label: "Tools", value: "tools" },
 ];
