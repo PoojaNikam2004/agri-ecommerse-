@@ -3,15 +3,9 @@ const db = require("../config/db");
 /* CREATE PRODUCT */
 exports.createProduct = (req, res) => {
 
-  console.log("BODY =>", req.body);
-  console.log("FILE =>", req.file);
-
   const { name, description, price, stock, category } = req.body;
 
   const image = req.file ? req.file.filename : null;
-
-  console.log("IMAGE =>", image);
-
 
   const sql = `
     INSERT INTO products
@@ -21,15 +15,9 @@ exports.createProduct = (req, res) => {
 
   db.query(
     sql,
-    [
-      name,
-      description,
-      price,
-      stock,
-      image,
-      category,
-    ],
+    [name, description, price, stock, image, category],
     (err, result) => {
+
       if (err) {
         console.log(err);
         return res.status(500).json(err);
@@ -46,9 +34,11 @@ exports.createProduct = (req, res) => {
 
 /* GET ALL PRODUCTS */
 exports.getAllProducts = (req, res) => {
+
   db.query(
     "SELECT * FROM products ORDER BY id DESC",
     (err, results) => {
+
       if (err) {
         console.log(err);
         return res.status(500).json(err);
@@ -61,12 +51,14 @@ exports.getAllProducts = (req, res) => {
 
 /* GET SINGLE PRODUCT */
 exports.getSingleProduct = (req, res) => {
+
   const { id } = req.params;
 
   db.query(
     "SELECT * FROM products WHERE id=?",
     [id],
     (err, result) => {
+
       if (err) {
         console.log(err);
         return res.status(500).json(err);
@@ -85,12 +77,14 @@ exports.getSingleProduct = (req, res) => {
 
 /* DELETE PRODUCT */
 exports.deleteProduct = (req, res) => {
+
   const { id } = req.params;
 
   db.query(
     "DELETE FROM products WHERE id=?",
     [id],
     (err) => {
+
       if (err) {
         console.log(err);
         return res.status(500).json(err);
