@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/agri-ecommerse-/static/css/main.da63c012.css",
-    "main.js": "/agri-ecommerse-/static/js/main.822e6a58.js",
+    "main.css": "/agri-ecommerse-/static/css/main.09ee1c62.css",
+    "main.js": "/agri-ecommerse-/static/js/main.2721bfc0.js",
     "index.html": "/agri-ecommerse-/index.html",
-    "main.da63c012.css.map": "/agri-ecommerse-/static/css/main.da63c012.css.map",
-    "main.822e6a58.js.map": "/agri-ecommerse-/static/js/main.822e6a58.js.map"
+    "main.09ee1c62.css.map": "/agri-ecommerse-/static/css/main.09ee1c62.css.map",
+    "main.2721bfc0.js.map": "/agri-ecommerse-/static/js/main.2721bfc0.js.map"
   },
   "entrypoints": [
-    "static/css/main.da63c012.css",
-    "static/js/main.822e6a58.js"
+    "static/css/main.09ee1c62.css",
+    "static/js/main.2721bfc0.js"
   ]
 }
