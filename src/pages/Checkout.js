@@ -63,16 +63,21 @@ const Checkout = () => {
 
         navigate("/order-success");
       }
-    } catch (err) {
-      console.log("FULL ERROR =>", err);
+    }catch (err) {
+  console.log("FULL ERROR =>", err);
 
-      if (err.response) {
-        console.log("ERROR STATUS =>", err.response.status);
-        console.log("ERROR DATA =>", err.response.data);
-      }
+  if (err.response) {
+    console.log("STATUS =>", err.response.status);
+    console.log("DATA =>", err.response.data);
 
-      alert("Order Failed");
-    }
+    alert(
+      `Error ${err.response.status}\n${JSON.stringify(err.response.data)}`
+    );
+  } else {
+    console.log("NO RESPONSE =>", err.message);
+    alert(err.message);
+  }
+}
   };
 
   return (

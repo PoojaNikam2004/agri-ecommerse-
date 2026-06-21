@@ -43,7 +43,7 @@ const Navbar = () => {
           Order
         </Link>
        
-        <Link to="/OrderSuccess" className="order">
+        <Link to="/payment" className="order">
           Payment
         </Link>
 

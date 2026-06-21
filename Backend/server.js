@@ -18,7 +18,7 @@ app.use("/api/orders", require("./routes/order"));
 app.use("/api/categories", require("./routes/category"));
 app.use("/uploads", express.static("uploads"));
 
-app.use("/payment", express.static("paymentRoutes"));
+app.use("/api/payment", require("./routes/paymentRoutes"));
 
 app.use("/api/admin", require("./routes/adminorders"));
 app.use("/api/user", require("./routes/user"));

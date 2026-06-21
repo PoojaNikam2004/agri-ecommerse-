@@ -20,6 +20,7 @@ import ManageProducts from "./pages/admin/ManageProducts";
 import "./App.css";
 import AdminOrders from "./pages/admin/AdminOrders";
 import Profile from "./pages/Profile";
+import Payment from "./pages/Payment"
 
 function App() {
   return ( 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/admin/products" element={<ManageProducts />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/payment" element={<Payment />} />
         </Routes>
         {/* <div className="first-container"> */}
           {/* <h1> WELCOME TO MY AGRIMART ! </h1> */}
