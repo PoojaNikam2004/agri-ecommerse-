@@ -19,8 +19,8 @@ const Home = () => {
             <Link to="/products" className="btn primary">
               Shop Now
             </Link>
-            <Link to="/products" className="btn secondary">
-              Explore Products
+            <Link to="/about" className="btn secondary">
+              Go About Us
             </Link>
           </div>
         </div>

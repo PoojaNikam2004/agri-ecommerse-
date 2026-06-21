@@ -122,8 +122,7 @@ const Products = () => {
                   ₹{product.price}
                 </p>
 
-                <Link
-                  to={`/product/${product.id}`}
+                <Link to={`/product/${product.id}`}
                   className="details-btn"
                 >
                   View Details

@@ -29,26 +29,25 @@ const Navbar = () => {
       {/* Links */}
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
         <Link to="/about">About</Link>
+        <Link to="/products">Products</Link>
+        
 
         {/* Cart */}
         <Link to="/cart" className="cart-link">
           Cart
           {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
         </Link>
-
+            <Link to="/admin">Admin</Link> 
         <Link to="/order" className="order">
           Order
         </Link>
-        <Link to="/MyOrder" className="order">
-          MyOrder
-        </Link>
+       
         <Link to="/OrderSuccess" className="order">
           Payment
         </Link>
 
-        <Link to="/admin">Admin</Link>   
+         
         <Link to="/login">Login</Link>   
 
         <Link to="/profile">Profile</Link>

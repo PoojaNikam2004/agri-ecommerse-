@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./AddProduct.css";
+
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -43,79 +45,72 @@ const AddProduct = () => {
   };
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h2>Add Product</h2>
+  <div className="add-product-container">
+    <div className="add-product-card">
+
+      <div className="product-icon">
+        🌱
+      </div>
+
+      <h2>Add New Product</h2>
 
       <form onSubmit={handleSubmit}>
+
         <input
+          className="product-input"
           type="text"
           placeholder="Product Name"
           value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
+          onChange={(e) => setName(e.target.value)}
         />
-
-        <br /><br />
 
         <textarea
-          placeholder="Description"
+          className="product-textarea"
+          placeholder="Product Description"
           value={description}
-          onChange={(e) =>
-            setDescription(e.target.value)
-          }
+          onChange={(e) => setDescription(e.target.value)}
         />
 
-        <br /><br />
-
         <input
+          className="product-input"
           type="number"
-          placeholder="Price"
+          placeholder="Price (₹)"
           value={price}
-          onChange={(e) =>
-            setPrice(e.target.value)
-          }
+          onChange={(e) => setPrice(e.target.value)}
         />
 
-        <br /><br />
-
         <input
+          className="product-input"
           type="number"
-          placeholder="Stock"
+          placeholder="Stock Quantity"
           value={stock}
-          onChange={(e) =>
-            setStock(e.target.value)
-          }
+          onChange={(e) => setStock(e.target.value)}
         />
 
-        <br /><br />
-
         <input
+          className="product-input"
           type="text"
           placeholder="Category ID"
           value={category}
-          onChange={(e) =>
-            setCategory(e.target.value)
-          }
+          onChange={(e) => setCategory(e.target.value)}
         />
-
-        <br /><br />
 
         <input
+          className="product-file"
           type="file"
-          onChange={(e) =>
-            setImage(e.target.files[0])
-          }
+          onChange={(e) => setImage(e.target.files[0])}
         />
 
-        <br /><br />
-
-        <button type="submit">
+        <button
+          className="add-product-btn"
+          type="submit"
+        >
           Add Product
         </button>
+
       </form>
     </div>
-  );
-};
-
+  </div>
+);
+}
 export default AddProduct;
