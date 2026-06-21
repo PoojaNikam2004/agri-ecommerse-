@@ -43,9 +43,9 @@ const Navbar = () => {
           Order
         </Link>
        
-        <Link to="/payment" className="order">
-          Payment
-        </Link>
+        {/* <Link to="/payment" className="order"> */}
+          {/* Payment */}
+        {/* </Link> */}
 
          
         <Link to="/login">Login</Link>   
