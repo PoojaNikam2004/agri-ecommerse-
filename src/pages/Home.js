@@ -10,7 +10,7 @@ const Home = () => {
       {/* HERO SECTION */}
       <section className="hero">
         <div className="hero-content">
-          <h1>India’s Trusted Agriculture Store 🌱</h1>
+          <h2>India’s Trusted Agriculture Store 🌱</h2>
           <p>
             Fresh Seeds, Fertilizers & Tools for Better Farming
           </p>

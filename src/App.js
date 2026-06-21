@@ -48,6 +48,10 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/profile" element={<Profile />} />
         </Routes>
+        <div className="first-container">
+          <h1> WELCOME TO MY AGRIMART ! </h1>
+        <button onClick={() => window.location.href = "/"} className="btn btn-success">Go to shop</button>
+          </div>
       <Footer />
     </CartProvider>
 );
