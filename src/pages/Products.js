@@ -122,11 +122,7 @@ const Products = () => {
                   ₹{product.price}
                 </p>
 
-                <Link to={`/product/${product.id}`}
-                  className="details-btn"
-                >
-                  View Details
-                </Link>
+                <Link to={`/product/${product.id}`} className="details-btn">View Details</Link>
               </div>
             ))
           ) : (
