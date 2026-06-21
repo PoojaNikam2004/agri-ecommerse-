@@ -24,9 +24,11 @@ import Profile from "./pages/Profile";
 function App() {
   return ( 
     
+    
     <CartProvider>
 
       <Navbar />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
@@ -48,12 +50,14 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/profile" element={<Profile />} />
         </Routes>
-        <div className="first-container">
-          <h1> WELCOME TO MY AGRIMART ! </h1>
-        <button onClick={() => window.location.href = "/"} className="btn btn-success">Go to shop</button>
-          </div>
+        {/* <div className="first-container"> */}
+          {/* <h1> WELCOME TO MY AGRIMART ! </h1> */}
+       {/* <button onClick={() => window.location.href = "/"} className="btn btn-success">Go to shop</button> */}
+         {/* </div> */}
       <Footer />
     </CartProvider>
+    
 );
+
 }
 export default App;

@@ -12,7 +12,7 @@ const Checkout = () => {
 
   const total = cartItems.reduce(
     (sum, item) => sum + Number(item.price) * item.quantity,
-    0
+    0,
   );
 
   const placeOrder = async () => {
@@ -52,7 +52,7 @@ const Checkout = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       console.log("SUCCESS RESPONSE =>", res.data);
@@ -60,6 +60,7 @@ const Checkout = () => {
       if (res.data.success) {
         clearCart();
         alert("Order Placed Successfully");
+
         navigate("/order-success");
       }
     } catch (err) {
@@ -77,6 +78,7 @@ const Checkout = () => {
   return (
     <div className="checkout-container">
       <div className="checkout-card">
+        <div className="checkout-icon">🚚</div>
         <h1>Checkout</h1>
 
         <textarea
@@ -87,11 +89,14 @@ const Checkout = () => {
 
         <h2>Total: ₹{total}</h2>
 
-        <button
-          className="place-order-btn"
-          onClick={placeOrder}
-        >
+        <button className="place-order-btn" onClick={placeOrder}>
           Place Order
+        </button>
+        <button
+          className="back-to-cart-btn"
+          onClick={() => navigate("/products")}
+        >
+          Continue to Shopping
         </button>
       </div>
     </div>

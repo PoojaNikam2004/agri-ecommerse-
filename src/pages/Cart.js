@@ -60,7 +60,7 @@ const navigate= useNavigate();
 
 <button
   className="checkout-btn"
-  onClick={() => navigate("/order")}
+  onClick={() => navigate("/checkout")}
 >
   Proceed to Checkout →
 </button>

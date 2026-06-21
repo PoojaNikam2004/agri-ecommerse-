@@ -27,6 +27,7 @@ const Order = () => {
               <h3>{item.name}</h3>
               <p>₹{item.price}</p>
               <p>Qty: {item.quantity}</p>
+              
             </div>
           ))}
 

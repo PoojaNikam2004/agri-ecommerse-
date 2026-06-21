@@ -48,7 +48,9 @@ const Navbar = () => {
           Payment
         </Link>
 
-        <Link to="/admin">Admin</Link>
+        <Link to="/admin">Admin</Link>   
+        <Link to="/login">Login</Link>   
+
         <Link to="/profile">Profile</Link>
 
         {/* PROFILE */}
@@ -65,7 +67,7 @@ const Navbar = () => {
                 <hr />
                 <Link to="/profile">Profile</Link>
                 <Link to="/Order">My Orders</Link>
-                <Link to="/About">Address</Link>
+                <Link to="/address">Address</Link>
                 <hr />
                 <p className="logout">🚪 Logout</p>
               </div>

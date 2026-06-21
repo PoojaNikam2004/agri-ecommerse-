@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
-
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -13,27 +13,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-
       const res = await axios.post(
         "http://localhost:5000/api/auth/login",
         {
-          email: email,
-          password: password
+          email,
+          password,
         }
       );
 
-      console.log(res.data);
-
-      // ⭐ TOKEN SAVE
       localStorage.setItem("token", res.data.token);
-
-      // user info save
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful");
-
       navigate("/profile");
-
     } catch (err) {
       console.log(err);
       alert("Login Failed");
@@ -41,34 +33,40 @@ const Login = () => {
   };
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
+    <div className="login-container">
+      <div className="login-card">
 
-      <h2>Login</h2>
+        <div className="login-icon">
+          👤
+        </div>
 
-      <form onSubmit={handleLogin}>
+        <h2>Login</h2>
 
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleLogin}>
+          <input
+            className="login-input"
+            type="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <br /><br />
+          <input
+            className="login-input"
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <button className="login-btn" type="submit">
+            Login
+          </button>
+        </form>
 
-        <br /><br />
-
-        <button type="submit">Login</button>
-
-      </form>
-
+      </div>
     </div>
   );
 };

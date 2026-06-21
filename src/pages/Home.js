@@ -49,6 +49,7 @@ const Home = () => {
 
       <section className="cta">
         <h2>Grow Better Crops with AgriMart 🌾</h2>
+        <br></br>
         <Link to="/products" className="btn-primary">
           Start Shopping
         </Link>
